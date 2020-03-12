@@ -1,9 +1,13 @@
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Insets;
 import javax.swing.JOptionPane;
 import javax.swing.border.Border;
+import javax.swing.text.BadLocationException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,12 +20,121 @@ import javax.swing.border.Border;
  * @author Shanice Vergonia
  */
 public class Calculator extends javax.swing.JFrame {
+    private static final long serialVersionUID = 1L;
+    private boolean hasResult = false;
 
     /**
      * Creates new form Calculator
      */
     public Calculator() {
         initComponents();
+        addKeyListener(new ButtonKeyListener());
+        setFocusable(true);
+        tf.setForeground(Color.BLACK);
+    }
+
+    private void calculate(){
+        try {
+            if (tf.getText().isEmpty()) return;
+            int result = Bitwise.evaluate(tf.getText());
+            tf.setText(String.valueOf(result));
+            hasResult = true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Invalid Expression", 
+            "Exception", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private class ButtonKeyListener extends KeyAdapter {
+
+        @Override
+        public void keyTyped(KeyEvent event) {
+            if (hasResult){
+                tf.setText("");
+                hasResult = false;
+            }
+
+            switch ((int) event.getKeyChar()) {
+                case 48:
+                    zeroB.doClick();
+                    break;
+
+                case 49:
+                    oneB.doClick();
+                    break;
+
+                case 50:
+                    twoB.doClick();
+                    break;
+
+                case 51:
+                    threeB.doClick();
+                    break;
+
+                case 52:
+                    fourB.doClick();
+                    break;
+
+                case 53:
+                    fiveB.doClick();
+                    break;
+
+                case 54:
+                    sixB.doClick();
+                    break;
+
+                case 55:
+                    sevenB.doClick();
+                    break;
+
+                case 56:
+                    eightB.doClick();
+                    break;
+
+                case 57:
+                    nineB.doClick();
+                    break;
+
+                case 40:
+                    open.doClick();
+                    break;
+
+                case 41:
+                    close.doClick();
+                    break;
+
+                case 38:
+                    and.doClick();
+                    break;
+
+                case 94:
+                    exor.doClick();
+                    break;
+
+                case 124:
+                    or.doClick();
+                    break;
+
+                case 126:
+                    not.doClick();
+                    break;
+
+                case 8:
+                    del.doClick();
+                    break;
+
+                case 27: case 127:
+                    eraseB.doClick();
+                    break;
+
+                case 61: case 10:
+                    equalsB.doClick();
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 
     /**
@@ -287,6 +400,11 @@ public class Calculator extends javax.swing.JFrame {
         open.setIcon(new javax.swing.ImageIcon(getClass().getResource("/open.png"))); // NOI18N
         open.setBorderPainted(false);
         open.setContentAreaFilled(false);
+        open.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openActionPerformed(evt);
+            }
+        });
         jPanel1.add(open);
         open.setBounds(180, 200, 80, 50);
 
@@ -342,102 +460,177 @@ public class Calculator extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void nineBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nineBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nineBActionPerformed
+    private void nineBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_nineBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "9");
+    }// GEN-LAST:event_nineBActionPerformed
 
-    private void sixBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sixBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sixBActionPerformed
+    private void sixBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_sixBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "6");
+    }// GEN-LAST:event_sixBActionPerformed
 
-    private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_closeActionPerformed
+    private void openActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closeActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "(");
+    }// GEN-LAST:event_closeActionPerformed
 
-    private void exorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_exorActionPerformed
+    private void closeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closeActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + ")");
+    }// GEN-LAST:event_closeActionPerformed
 
-    private void fiveBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fiveBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fiveBActionPerformed
+    private void exorActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_exorActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "^");
+    }// GEN-LAST:event_exorActionPerformed
 
-    private void oneBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oneBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_oneBActionPerformed
+    private void fiveBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_fiveBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "5");
+    }// GEN-LAST:event_fiveBActionPerformed
 
-    private void twoBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_twoBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_twoBActionPerformed
+    private void oneBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_oneBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "1");
+    }// GEN-LAST:event_oneBActionPerformed
 
-    private void threeBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_threeBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_threeBActionPerformed
+    private void twoBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_twoBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "2");
+    }// GEN-LAST:event_twoBActionPerformed
 
-    private void fourBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fourBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fourBActionPerformed
+    private void threeBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_threeBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "3");
+    }// GEN-LAST:event_threeBActionPerformed
 
-    private void sevenBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sevenBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sevenBActionPerformed
+    private void fourBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_fourBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "4");
+    }// GEN-LAST:event_fourBActionPerformed
 
-    private void eightBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eightBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_eightBActionPerformed
+    private void sevenBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_sevenBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "7");
+    }// GEN-LAST:event_sevenBActionPerformed
 
-    private void andActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_andActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_andActionPerformed
+    private void eightBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_eightBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "8");
+    }// GEN-LAST:event_eightBActionPerformed
 
-    private void notActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_notActionPerformed
+    private void andActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_andActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "&");
+    }// GEN-LAST:event_andActionPerformed
 
-    private void orActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_orActionPerformed
+    private void notActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_notActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "~");
+    }// GEN-LAST:event_notActionPerformed
 
-    private void equalsBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_equalsBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_equalsBActionPerformed
+    private void orActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_orActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "|");
+    }// GEN-LAST:event_orActionPerformed
 
-    private void BitwiseCalculatorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BitwiseCalculatorActionPerformed
+    private void equalsBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_equalsBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        calculate();
+    }// GEN-LAST:event_equalsBActionPerformed
+
+    private void BitwiseCalculatorActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_BitwiseCalculatorActionPerformed
         Calculator simple = new Calculator();
         simple.setVisible(true);
-        simple.setSize(370,520);
+        simple.setSize(370, 520);
         simple.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_BitwiseCalculatorActionPerformed
+    }// GEN-LAST:event_BitwiseCalculatorActionPerformed
 
-    private void exitbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitbuttonActionPerformed
-       if(evt.getSource() == exitbutton){
-            int response = JOptionPane.showConfirmDialog(
-                    rootPane,
-                    "Do you want to exit the program?",
-                    "Quit", 
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.QUESTION_MESSAGE);
-            if(response == 0){
-                 this.dispose();
+    private void exitbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_exitbuttonActionPerformed
+        if (evt.getSource() == exitbutton) {
+            int response = JOptionPane.showConfirmDialog(rootPane, "Do you want to exit the program?", "Quit",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == 0) {
+                this.dispose();
             }
         }
-    }//GEN-LAST:event_exitbuttonActionPerformed
+    }// GEN-LAST:event_exitbuttonActionPerformed
 
-    private void zeroBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zeroBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_zeroBActionPerformed
+    private void zeroBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_zeroBActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "0");
+    }// GEN-LAST:event_zeroBActionPerformed
 
-    private void eraseBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eraseBActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_eraseBActionPerformed
+    private void eraseBActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_eraseBActionPerformed
+        tf.setText("");
+    }// GEN-LAST:event_eraseBActionPerformed
 
-    private void delActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delActionPerformed
-        // TODO add your handling code here:
+    private void delActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_delActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        try {
+            tf.setText(tf.getText(0, tf.getText().length() - 1));
+        } catch (BadLocationException e) {
+            // Expected Exception: when the user backspace an empty JTextField
+        }
     }//GEN-LAST:event_delActionPerformed
 
     private void tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_tfActionPerformed
 
     /**
