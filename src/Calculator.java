@@ -170,7 +170,6 @@ public class Calculator extends javax.swing.JFrame {
         tf = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         optionsMenu = new javax.swing.JMenu();
-        BitwiseCalculator = new javax.swing.JMenuItem();
         exitbutton = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -434,14 +433,6 @@ public class Calculator extends javax.swing.JFrame {
         optionsMenu.setText("Bitwise Calculator");
         optionsMenu.setIconTextGap(8);
 
-        BitwiseCalculator.setText("Bitwise Calculator");
-        BitwiseCalculator.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BitwiseCalculatorActionPerformed(evt);
-            }
-        });
-        optionsMenu.add(BitwiseCalculator);
-
         exitbutton.setText("Exit");
         exitbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -475,15 +466,6 @@ public class Calculator extends javax.swing.JFrame {
         }
         tf.setText(tf.getText() + "6");
     }// GEN-LAST:event_sixBActionPerformed
-
-    private void openActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closeActionPerformed
-        if (hasResult){
-            tf.setText("");
-            hasResult = false;
-        }
-        tf.setText(tf.getText() + "(");
-    }// GEN-LAST:event_closeActionPerformed
-
     private void closeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_closeActionPerformed
         if (hasResult){
             tf.setText("");
@@ -588,20 +570,17 @@ public class Calculator extends javax.swing.JFrame {
         calculate();
     }// GEN-LAST:event_equalsBActionPerformed
 
-    private void BitwiseCalculatorActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_BitwiseCalculatorActionPerformed
-        Calculator simple = new Calculator();
-        simple.setVisible(true);
-        simple.setSize(370, 520);
-        simple.setLocationRelativeTo(null);
-        this.dispose();
-    }// GEN-LAST:event_BitwiseCalculatorActionPerformed
-
-    private void exitbuttonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_exitbuttonActionPerformed
-        if (evt.getSource() == exitbutton) {
-            int response = JOptionPane.showConfirmDialog(rootPane, "Do you want to exit the program?", "Quit",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (response == 0) {
-                this.dispose();
+    private void exitbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitbuttonActionPerformed
+       if(evt.getSource() == exitbutton){
+            int response = JOptionPane.showConfirmDialog(
+                    rootPane,
+                    "Do you want to exit the program?",
+                    "Quit", 
+                    JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.QUESTION_MESSAGE);
+            if(response == 0){
+                 this.dispose();
+                 System.exit(0);
             }
         }
     }// GEN-LAST:event_exitbuttonActionPerformed
@@ -632,6 +611,14 @@ public class Calculator extends javax.swing.JFrame {
 
     private void tfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfActionPerformed
     }//GEN-LAST:event_tfActionPerformed
+
+    private void openActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openActionPerformed
+        if (hasResult){
+            tf.setText("");
+            hasResult = false;
+        }
+        tf.setText(tf.getText() + "(");
+    }//GEN-LAST:event_openActionPerformed
 
     /**
      * @param args the command line arguments
@@ -689,7 +676,6 @@ public class Calculator extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem BitwiseCalculator;
     private javax.swing.JButton and;
     private javax.swing.JButton close;
     private javax.swing.JButton del;
