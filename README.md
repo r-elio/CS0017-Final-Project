@@ -1,13 +1,11 @@
 # CS0017-Final-Project
  Bitwise Calculator
 
-Team
-Lead: Rajan Elio
-
-Members:
+Team:
 - Albert Dizon
 - James De Leon
 - Mark Egana
+- Rajan Elio
 - Kendrew Javelosa
 - Drake Jordan
 - Carl James Reblora
