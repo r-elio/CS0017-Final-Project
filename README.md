@@ -3,6 +3,7 @@
 
 Team
 Lead: Rajan Elio
+
 Members:
 - Albert Dizon
 - James De Leon
